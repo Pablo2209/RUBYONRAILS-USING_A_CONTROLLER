@@ -1,0 +1,38 @@
+<%= form_with(model: variation, local: true) do |form| %>
+  <% if variation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(variation.errors.count, "error") %> prohibited this variation from being saved:</h2>
+
+      <ul>
+      <% variation.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+  
+  <%= link_to 'Create Option', new_option_path %>
+
+  <div class="field">  
+    <div id="options">
+      <%= form.fields_for :variation_options do |option_var| %>
+        <%= render "variation_option_fields", f: option_var %>
+      <% end %>
+    </div>
+    <div class="links">
+      <%= link_to_add_association form, :variation_options do %>
+        <span class="pl-1"><i class="fas fa-plus-square fa-2x"></i> Add Option </span>
+      <% end %>
+    </div>
+  </div>
+
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
