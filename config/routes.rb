@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :admins
 
   get '/item/:id', to: 'home#show', as: 'item'
-  root to: "home#index"
+  root 'products#index'
 
   authenticate :admin do
     resources :categories
